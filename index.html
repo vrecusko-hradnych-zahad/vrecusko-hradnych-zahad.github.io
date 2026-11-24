@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vrecúško hradných záhad – kartová hra o slovenských hradoch</title>
+<meta name="description" content="Kartová hra o 20 slovenských hradoch a ich povestiach pre deti od 10 do 12 rokov. Karty, komiks, úlohy, nálepky a mapa Slovenska.">
+<link rel="icon" href="obrazky/nalepky/koruna.webp">
+<style>
+/* ---------- Písma ---------- */
+@font-face{font-family:"Bangers";src:url(fonty/bangers-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap}
+@font-face{font-family:"Bangers";src:url(fonty/bangers-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap}
+@font-face{font-family:"Jost";font-weight:400;src:url(fonty/jost-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap}
+@font-face{font-family:"Jost";font-weight:400;src:url(fonty/jost-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap}
+@font-face{font-family:"Jost";font-weight:500;src:url(fonty/jost-latin-ext-500-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap}
+@font-face{font-family:"Jost";font-weight:500;src:url(fonty/jost-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap}
+@font-face{font-family:"Jost";font-weight:700;src:url(fonty/jost-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap}
+@font-face{font-family:"Jost";font-weight:700;src:url(fonty/jost-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap}
+
+/* ---------- Farby hry ---------- */
+:root{
+  --vinova:#5F1F2E;
+  --vinova-tmava:#46141F;
+  --horcicova:#BDA830;
+  --citronova:#F2ED70;
+  --kremova:#F8EEDC;
+  --ladova:#BFD6DA;
+  --pomaranc:#F08A2A;
+  --modra:#2E4466;
+  --zelena:#3E7D4B;
+  --radius:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;font-family:"Jost",system-ui,sans-serif;font-size:1.125rem;line-height:1.55;color:var(--vinova);background:var(--kremova)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:"Bangers",Impact,sans-serif;font-weight:400;letter-spacing:.02em;line-height:1.02;margin:0}
+h2{font-size:clamp(2.6rem,6vw,4.2rem)}
+h3{font-size:1.75rem}
+p{margin:0 0 1em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pomaranc);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1160px,92vw);margin:0 auto}
+.lead{font-size:1.25rem;max-width:58ch}
+
+/* Vlnité prechody medzi sekciami */
+.vlna{display:block;width:100%;height:60px;margin-bottom:-1px}
+.vlna path{fill:currentColor}
+
+/* Tlačidlá */
+.btn{display:inline-flex;align-items:center;gap:.5em;font:inherit;font-weight:700;font-size:1.05rem;padding:.8em 1.4em;border-radius:999px;border:3px solid var(--vinova);background:var(--citronova);color:var(--vinova);text-decoration:none;cursor:pointer;box-shadow:0 4px 0 var(--vinova);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--vinova)}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--vinova)}
+.btn.druhe{background:var(--kremova)}
+.btn[disabled]{opacity:.5;cursor:default;transform:none}
+
+/* ---------- Úvod ---------- */
+.uvod{background:var(--vinova);color:var(--kremova);position:relative;overflow:hidden}
+.uvod .wrap{display:grid;grid-template-columns:1.1fr .9fr;align-items:end;gap:2rem;min-height:min(86vh,760px);padding-top:3rem}
+.uvod-text{align-self:center;padding-bottom:3rem;position:relative;z-index:2}
+.uvod h1{margin:0}
+.uvod h1 img{width:min(440px,80vw);height:auto}
+.uvod .lead{margin:1.6rem 0 2rem;color:var(--kremova)}
+.uvod .akcie{display:flex;flex-wrap:wrap;gap:1rem}
+.postavy{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:0}
+.postavy img{height:min(70vh,620px);width:auto;filter:drop-shadow(0 10px 0 rgba(0,0,0,.18))}
+.postavy img.zara{margin-left:-40px;height:min(62vh,550px)}
+.pozadie-cmaranice{position:absolute;inset:0;pointer-events:none;z-index:0}
+.uvod .wrap{position:relative;z-index:1}
+.nalepka-plava{position:absolute;width:86px;z-index:2}
+.uvod .menu{position:absolute;top:1.2rem;right:4vw;z-index:3;display:flex;gap:1.4rem;font-weight:500}
+.uvod .menu a{text-decoration:none;color:var(--kremova);opacity:.85}
+.uvod .menu a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+
+/* ---------- O hre ---------- */
+.o-hre{background:var(--horcicova);color:var(--vinova);padding:4rem 0 3rem}
+.o-hre .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center}
+.o-hre h2{margin-bottom:1.2rem}
+.fakty{list-style:none;padding:0;margin:1.5rem 0 0;display:flex;flex-wrap:wrap;gap:.7rem}
+.fakty li{background:var(--kremova);border:3px solid var(--vinova);border-radius:999px;padding:.35em 1em;font-weight:500}
+.fakty b{font-family:"Bangers";font-weight:400;font-size:1.35em;margin-right:.25em;letter-spacing:.03em}
+.karty-vejar{position:relative;height:420px}
+.karty-vejar img{position:absolute;width:230px;border-radius:14px;box-shadow:0 12px 24px rgba(70,20,31,.35);border:5px solid var(--kremova)}
+.karty-vejar img:nth-child(1){left:6%;top:30px;transform:rotate(-12deg)}
+.karty-vejar img:nth-child(2){left:38%;top:0;transform:rotate(8deg)}
+
+/* ---------- Čo je vo vrecúšku ---------- */
+.obsah{padding:4.5rem 0 4rem;background:var(--kremova)}
+.obsah h2{margin-bottom:.6rem}
+.obsah .lead{margin-bottom:2.5rem}
+.veci{display:grid;grid-template-columns:repeat(6,1fr);gap:1.4rem}
+.vec{background:#fff;border:3px solid var(--vinova);border-radius:var(--radius);padding:1.2rem;display:flex;flex-direction:column;gap:.8rem}
+.vec h3{font-size:1.6rem}
+.vec p{margin:0;font-size:1rem}
+.vec .obr{border-radius:12px;overflow:hidden;background:var(--ladova);display:flex;align-items:center;justify-content:center}
+.vec.komiks{grid-column:span 3;grid-row:span 2}
+.vec.komiks .obr{background:none;gap:.6rem;align-items:stretch}
+.vec.komiks .obr button{flex:1;padding:0;border:0;background:none;cursor:zoom-in;border-radius:8px;overflow:hidden}
+.vec.komiks .obr img{width:100%;height:100%;object-fit:cover;object-position:top}
+.vec.karty,.vec.nalepky{grid-column:span 3}
+.vec.planik{grid-column:span 4}
+.vec.vrecko{grid-column:span 2}
+.nalepky-rad{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;padding:.6rem;background:none!important}
+.nalepky-rad img{width:64px;height:64px;object-fit:contain}
+.ulohy-rad{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-top:.2rem}
+.ulohy-rad button{padding:0;border:2px solid var(--vinova);border-radius:8px;overflow:hidden;cursor:zoom-in;background:#fff;aspect-ratio:3/4}
+.ulohy-rad img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ulohy-rad span{display:block}
+.popis-mini{font-size:.85rem;opacity:.8}
+
+/* ---------- Ako hrať ---------- */
+.ako{background:var(--vinova);color:var(--kremova);padding:4rem 0 4.5rem;position:relative}
+.ako h2{color:var(--citronova);margin-bottom:2.4rem}
+.kroky{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;counter-reset:k}
+.kroky li{position:relative;padding:1.2rem 1.1rem 1.3rem;border:3px dashed rgba(242,237,112,.55);border-radius:var(--radius);counter-increment:k}
+.kroky li::before{content:counter(k);font-family:"Bangers";font-size:2.6rem;line-height:1;width:58px;height:58px;display:grid;place-items:center;background:var(--citronova);color:var(--vinova);border-radius:50%;margin-bottom:.8rem}
+.kroky h3{font-size:1.6rem;color:var(--citronova);margin-bottom:.4rem}
+.kroky p{font-size:1rem;margin:0}
+.kroky img{position:absolute;right:10px;top:12px;width:54px;transform:rotate(10deg)}
+
+/* ---------- Mapa ---------- */
+.mapa-sekcia{background:var(--horcicova);padding:4rem 0 4.5rem}
+.mapa-hlava{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.mapa-hlava .lead{margin:.8rem 0 0}
+.zbierka{background:var(--kremova);border:3px solid var(--vinova);border-radius:var(--radius);padding:.9rem 1.2rem;min-width:260px}
+.zbierka strong{font-family:"Bangers";font-weight:400;font-size:1.6rem;letter-spacing:.03em}
+.ukazovatel{height:14px;background:#fff;border:2px solid var(--vinova);border-radius:99px;overflow:hidden;margin:.4rem 0 .5rem}
+.ukazovatel span{display:block;height:100%;width:0;background:var(--vinova);transition:width .5s}
+.zbierka button{font:inherit;font-size:.85rem;background:none;border:0;padding:0;text-decoration:underline;color:var(--vinova);cursor:pointer;opacity:.8}
+.mapa-ram{background:var(--kremova);border:4px solid var(--vinova);border-radius:28px;padding:clamp(.6rem,2vw,1.6rem);position:relative;box-shadow:0 10px 0 var(--vinova-tmava)}
+.mapa-ram svg{width:100%;height:auto;display:block;overflow:visible}
+.krajina{fill:#fff;stroke:var(--vinova);stroke-width:4;stroke-linejoin:round}
+.krajina-tien{fill:var(--ladova);transform:translate(8px,10px)}
+.pin{cursor:pointer;outline:none}
+.pin .kruh{fill:var(--vinova);stroke:var(--kremova);stroke-width:4;transition:r .15s}
+.pin text{font-family:"Bangers";font-size:22px;fill:var(--citronova);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.pin .meno{font-family:"Jost";font-weight:700;font-size:20px;fill:var(--vinova);opacity:0;transition:opacity .15s;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+.pin:hover .meno,.pin:focus .meno{opacity:1}
+.pin:hover .kruh,.pin:focus .kruh{r:27}
+.pin:focus .kruh{stroke:var(--pomaranc)}
+.pin .ziskana{display:none}
+.pin.hotovo .kruh{fill:var(--citronova);stroke:var(--vinova)}
+.pin.hotovo text{display:none}
+.pin.hotovo .ziskana{display:block}
+.zoznam-hradov{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.6rem;padding:0;list-style:none}
+.zoznam-hradov button{font:inherit;font-size:.95rem;font-weight:500;background:var(--kremova);border:2px solid var(--vinova);color:var(--vinova);border-radius:99px;padding:.3em .9em;cursor:pointer}
+.zoznam-hradov button:hover{background:#fff}
+.zoznam-hradov button.hotovo{background:var(--vinova);color:var(--citronova)}
+.zoznam-hradov button.hotovo::before{content:"✓ "}
+
+/* ---------- Karty (hrad + legenda) ---------- */
+dialog{border:0;padding:0;background:none;max-width:min(980px,96vw);width:100%;color:var(--vinova)}
+dialog::backdrop{background:rgba(70,20,31,.72)}
+.dialog-obal{background:var(--kremova);border:4px solid var(--vinova);border-radius:28px;padding:clamp(1rem,3vw,2rem);position:relative;max-height:92vh;overflow:auto}
+.zavriet{position:absolute;top:.8rem;right:.8rem;width:44px;height:44px;border-radius:50%;border:3px solid var(--vinova);background:var(--citronova);font-size:1.4rem;font-weight:700;cursor:pointer;color:var(--vinova);line-height:1;z-index:2}
+.dialog-obal h3{font-size:2.3rem;margin:0 3rem 1.2rem 0}
+.par-kariet{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.karta{border-radius:20px;padding:1rem;position:relative;display:flex;flex-direction:column;min-height:100%}
+.karta-a{background:var(--horcicova)}
+.karta-b{background:var(--citronova)}
+.pismeno{position:absolute;top:-8px;right:-8px;width:58px;height:58px;border-radius:50% 50% 50% 8px;background:var(--vinova);color:var(--citronova);font-family:"Bangers";font-size:2.2rem;display:grid;place-items:center;z-index:1}
+.karta-obraz{background:#fff;border-radius:18px 18px 6px 6px;overflow:hidden;aspect-ratio:16/11}
+.karta-obraz img{width:100%;height:100%;object-fit:cover}
+.nahradny{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.6rem;background:repeating-linear-gradient(45deg,#fff 0 14px,#fbf6e9 14px 28px);text-align:center;font-weight:500;padding:1rem}
+.nahradny img{width:90px!important;height:auto!important;object-fit:contain!important}
+.stuha{display:inline-block;align-self:center;background:var(--vinova);color:var(--kremova);font-family:"Bangers";font-size:1.5rem;letter-spacing:.04em;padding:.15em 1.2em;clip-path:polygon(0 0,100% 0,94% 50%,100% 100%,0 100%,6% 50%);margin:-1.1rem 0 .6rem}
+.karta-a .text{background:var(--kremova);border-radius:6px 6px 18px 18px;padding:1.6rem 1.1rem 1rem;display:flex;flex-direction:column;flex:1}
+.karta-a .text p,.karta-b .text p{font-size:1rem;margin:0}
+.karta-b .stuha{margin:.4rem 0 1rem}
+.karta-b .text{background:var(--horcicova);border-radius:30px 18px 34px 16px;padding:1.3rem 1.2rem;flex:1}
+.nazov-karty{font-family:"Bangers";font-size:1.5rem;letter-spacing:.06em;text-align:center;margin-top:.9rem;display:flex;flex-wrap:wrap;justify-content:center;column-gap:1.1em}
+.nazov-karty span{white-space:nowrap}
+
+.doplnovacka{margin-top:1.6rem;background:#fff;border:3px dashed var(--vinova);border-radius:20px;padding:1.2rem}
+.doplnovacka h4{font-family:"Bangers";font-weight:400;font-size:1.6rem;margin:0 0 .3rem;letter-spacing:.03em}
+.doplnovacka p{font-size:1rem;margin:0 0 1rem}
+.pismena{display:flex;flex-wrap:wrap;gap:.3rem;row-gap:.8rem;align-items:center}
+.slovo{display:flex;gap:.3rem;margin-right:1.2rem}
+.pismena .p,.pismena input{width:42px;height:52px;border-radius:10px;font-family:"Bangers";font-size:1.9rem;text-align:center;display:grid;place-items:center;color:var(--vinova)}
+.pismena .p{background:var(--kremova)}
+.pismena input{border:3px solid var(--vinova);background:var(--citronova);text-transform:uppercase;padding:0}
+.pismena input.zle{background:#f6c9c0;border-color:#b23a2a}
+.pismena input.dobre{background:#cfe6cf;border-color:var(--zelena)}
+.dopln-akcie{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.1rem}
+.sprava{font-weight:500;margin:0}
+.sprava.ok{color:var(--zelena)}
+.sprava.chyba{color:#9c2f22}
+.odmena{display:none;align-items:center;gap:.8rem}
+.odmena.ukaz{display:flex}
+.odmena img{width:70px;animation:nalep .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes nalep{from{transform:scale(2.2) rotate(-30deg);opacity:0}to{transform:scale(1) rotate(0)}}
+
+/* ---------- Nájdi pár ---------- */
+.hra{background:var(--kremova);padding:4.5rem 0}
+.hra .wrap{display:grid;grid-template-columns:.75fr 1.25fr;gap:3rem;align-items:start}
+.hra-uvod img{width:210px;margin-top:1.5rem}
+.hra-plocha{background:var(--vinova);color:var(--kremova);border-radius:28px;padding:clamp(1rem,3vw,2rem);min-height:420px}
+.hra-stav{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-weight:500}
+.hviezdy{display:flex;gap:.3rem}
+.hviezdy span{width:26px;height:26px;border-radius:50%;border:2px solid var(--citronova)}
+.hviezdy span.ok{background:var(--citronova)}
+.hviezdy span.zle{background:transparent;border-style:dashed;opacity:.5}
+.hra-legenda{background:var(--citronova);color:var(--vinova);border-radius:20px;padding:1.2rem 1.3rem;margin-bottom:1.3rem}
+.hra-legenda .stuha{margin:0 0 .7rem;font-size:1.3rem}
+.hra-legenda p{margin:0;font-size:1.05rem}
+.moznosti{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem}
+.moznost{font:inherit;color:var(--vinova);background:var(--horcicova);border:4px solid transparent;border-radius:16px;padding:.5rem;cursor:pointer;display:flex;flex-direction:column;gap:.5rem;text-align:center;font-weight:700;font-size:.95rem;transition:transform .12s}
+.moznost:hover:not([disabled]){transform:translateY(-3px)}
+.moznost .karta-obraz{border-radius:10px;aspect-ratio:4/3}
+.moznost .nahradny img{width:50px!important}
+.moznost .nahradny{font-size:.75rem;padding:.3rem}
+.moznost.spravna{border-color:var(--citronova);background:var(--citronova)}
+.moznost.nespravna{opacity:.45}
+.moznost[disabled]{cursor:default}
+.hra-dalej{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.2rem;min-height:56px;flex-wrap:wrap}
+.hra-dalej p{margin:0;font-weight:500}
+.hra-koniec{text-align:center;padding:2rem 1rem}
+.hra-koniec h3{font-size:2.6rem;color:var(--citronova);margin-bottom:.6rem}
+.hra-koniec img{width:110px;margin:0 auto 1rem}
+
+/* ---------- Pätička ---------- */
+.paticka{background:var(--vinova-tmava);color:var(--kremova);padding:3rem 0 0;overflow:hidden}
+.paticka .wrap{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:end}
+.paticka img.logo{width:220px;margin-bottom:1.2rem}
+.paticka p{font-size:1rem;opacity:.9;margin:0 0 .3rem}
+.sediaci{display:flex;align-items:flex-end}
+.sediaci img{height:230px;width:auto}
+.sediaci img.hrad{height:260px;margin-right:-60px}
+
+/* Zväčšený obrázok */
+#lupa .dialog-obal{padding:1rem;background:var(--vinova)}
+#lupa img{max-height:84vh;width:auto;margin:0 auto;border-radius:10px}
+
+/* ---------- Mobil ---------- */
+@media (max-width:900px){
+  .uvod .wrap,.o-hre .wrap,.hra .wrap,.paticka .wrap{grid-template-columns:1fr}
+  .uvod .wrap{min-height:0;padding-top:4.5rem}
+  .uvod-text{padding-bottom:0}
+  .postavy img{height:340px}.postavy img.zara{height:300px}
+  .karty-vejar{height:330px;max-width:420px}
+  .karty-vejar img{width:180px}
+  .veci{grid-template-columns:1fr 1fr}
+  .vec.komiks,.vec.karty,.vec.nalepky,.vec.planik,.vec.vrecko{grid-column:span 2;grid-row:auto}
+  .kroky{grid-template-columns:1fr 1fr}
+  .par-kariet{grid-template-columns:1fr}
+  .sediaci{justify-content:center}
+  .uvod .menu{display:none}
+}
+@media (max-width:560px){
+  body{font-size:1.05rem}
+  .kroky{grid-template-columns:1fr}
+  .moznosti{grid-template-columns:1fr 1fr}
+  .pismena .p,.pismena input{width:34px;height:44px;font-size:1.5rem}
+  .sediaci img{height:150px}.sediaci img.hrad{height:170px}
+  .nalepka-plava{display:none}
+  .pin .kruh{r:30}.pin:hover .kruh,.pin:focus .kruh{r:33}.pin text{font-size:30px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ÚVOD ============ -->
+<header class="uvod" id="uvod">
+  <svg class="pozadie-cmaranice" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M-20 640 C 120 560, 220 720, 360 620 S 560 520, 640 640" fill="none" stroke="#BFD6DA" stroke-width="10" stroke-linecap="round" stroke-dasharray="2 26" opacity=".7"/>
+    <path d="M760 60 c 60 40 20 90 80 120 s 40 90 110 100" fill="none" stroke="#F2ED70" stroke-width="14" stroke-linecap="round" opacity=".35"/>
+    <path d="M60 90 q 30 -40 60 0 t 60 0 t 60 0" fill="none" stroke="#BFD6DA" stroke-width="9" stroke-linecap="round" opacity=".55"/>
+    <circle cx="1080" cy="560" r="7" fill="#F08A2A"/><circle cx="1110" cy="590" r="5" fill="#F08A2A"/><circle cx="560" cy="120" r="6" fill="#BDA830"/>
+  </svg>
+  <nav class="menu" aria-label="Hlavné menu">
+    <a href="#o-hre">O hre</a><a href="#ako-hrat">Ako hrať</a><a href="#mapa">Mapa hradov</a><a href="#najdi-par">Nájdi pár</a>
+  </nav>
+  <img class="nalepka-plava" src="obrazky/nalepky/koruna.webp" alt="" style="left:47%;top:9%;transform:rotate(-14deg)">
+  <img class="nalepka-plava" src="obrazky/nalepky/zvitok.webp" alt="" style="left:3%;bottom:6%;transform:rotate(12deg);width:70px">
+  <div class="wrap">
+    <div class="uvod-text">
+      <h1><img src="obrazky/logo-svetle.png" alt="Vrecúško hradných záhad" width="351" height="253"></h1>
+      <p class="lead">Kartová hra o dvadsiatich slovenských hradoch a ich povestiach. Pre deti od 10 do 12 rokov, ktoré radi riešia záhady.</p>
+      <div class="akcie">
+        <a class="btn" href="#mapa">Otvoriť mapu hradov</a>
+        <a class="btn druhe" href="#najdi-par">Zahrať si Nájdi pár</a>
+      </div>
+    </div>
+    <div class="postavy">
+      <img src="obrazky/postavy/teo.webp" alt="Teo s mapou" width="391" height="1003">
+      <img class="zara" src="obrazky/postavy/zara.webp" alt="Zara s knihou" width="321" height="865">
+    </div>
+  </div>
+</header>
+
+<svg class="vlna" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--horcicova);background:var(--vinova)"><path d="M0 30 Q 75 0 150 30 T 300 30 T 450 30 T 600 30 T 750 30 T 900 30 T 1050 30 T 1200 30 V60 H0Z"/></svg>
+
+<!-- ============ O HRE ============ -->
+<section class="o-hre" id="o-hre">
+  <div class="wrap">
+    <div>
+      <h2>Hra, v ktorej ožívajú povesti</h2>
+      <p class="lead">Vrecúško hradných záhad spája kartovú hru, komiks a úlohy. Deti hľadajú k sebe kartu hradu a jeho legendu, dopĺňajú chýbajúce písmená v názvoch a za každý vyriešený hrad si nalepia nálepku do vlastnej mapy Slovenska.</p>
+      <p>Obrázky hradov na kartách sú omaľovánky, takže každé vrecúško si deti postupne vyfarbia po svojom.</p>
+      <ul class="fakty">
+        <li><b>20</b>hradov a zámkov</li>
+        <li><b>40</b>hracích kariet</li>
+        <li><b>4</b>kapitoly komiksu</li>
+        <li><b>10–12</b>rokov</li>
+      </ul>
+    </div>
+    <div class="karty-vejar" aria-hidden="true">
+      <img src="obrazky/karta-indicia-rub.jpg" alt="">
+      <img src="obrazky/karta-legenda-rub.jpg" alt="">
+    </div>
+  </div>
+</section>
+
+<svg class="vlna" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--kremova);background:var(--horcicova)"><path d="M0 30 Q 75 60 150 30 T 300 30 T 450 30 T 600 30 T 750 30 T 900 30 T 1050 30 T 1200 30 V60 H0Z"/></svg>
+
+<!-- ============ ČO JE VO VRECÚŠKU ============ -->
+<section class="obsah" id="obsah">
+  <div class="wrap">
+    <h2>Čo nájdeš vo vrecúšku</h2>
+    <p class="lead">Všetko potrebné na hru sa zmestí do jedného bavlneného vrecúška.</p>
+    <div class="veci">
+      <article class="vec komiks">
+        <h3>Komiks Úlohy hradných záhad</h3>
+        <p>Teo a Zara nájdu na povale starý list, podľa ktorého skutočný poklad neleží v truhlici. Ich pátranie pokračuje v štyroch kapitolách a medzi nimi čakajú omaľovánka, spájanie čísel, rozstrihaný hrad a bludisko.</p>
+        <div class="obr" style="aspect-ratio:2/1.4">
+          <button type="button" data-lupa="obrazky/material/obalka.jpg" aria-label="Zväčšiť obálku komiksu"><img src="obrazky/material/obalka.jpg" alt="Obálka komiksu Úlohy hradných záhad"></button>
+          <button type="button" data-lupa="obrazky/material/komiks-1.jpg" aria-label="Zväčšiť 1. kapitolu komiksu"><img src="obrazky/material/komiks-1.jpg" alt="1. kapitola: Záhadný odkaz"></button>
+        </div>
+        <div class="ulohy-rad">
+          <button type="button" data-lupa="obrazky/material/komiks-2.jpg" aria-label="Zväčšiť 2. kapitolu"><img src="obrazky/material/komiks-2.jpg" alt="2. kapitola komiksu"></button>
+          <button type="button" data-lupa="obrazky/material/komiks-3.jpg" aria-label="Zväčšiť 3. kapitolu"><img src="obrazky/material/komiks-3.jpg" alt="3. kapitola komiksu"></button>
+          <button type="button" data-lupa="obrazky/material/komiks-4.jpg" aria-label="Zväčšiť 4. kapitolu"><img src="obrazky/material/komiks-4.jpg" alt="4. kapitola komiksu"></button>
+          <button type="button" data-lupa="obrazky/material/bludisko.jpg" aria-label="Zväčšiť bludisko"><img src="obrazky/material/bludisko.jpg" alt="Úloha bludisko"></button>
+          <button type="button" data-lupa="obrazky/material/omalovanka.jpg" aria-label="Zväčšiť omaľovánku"><img src="obrazky/material/omalovanka.jpg" alt="Omaľovánka"></button>
+          <button type="button" data-lupa="obrazky/material/spoj-cisla.jpg" aria-label="Zväčšiť spájanie čísel"><img src="obrazky/material/spoj-cisla.jpg" alt="Úloha spoj čísla"></button>
+          <button type="button" data-lupa="obrazky/material/rozstrihany-hrad.jpg" aria-label="Zväčšiť rozstrihaný hrad"><img src="obrazky/material/rozstrihany-hrad.jpg" alt="Úloha rozstrihaný hrad"></button>
+        </div>
+        <p class="popis-mini">Kliknutím na stranu ju zväčšíš.</p>
+      </article>
+      <article class="vec karty">
+        <h3>40 hracích kariet</h3>
+        <p>Ku každému hradu patria dve karty: karta hradu s obrázkom na vymaľovanie a indíciou a karta s legendou. Na oboch je názov hradu s chýbajúcimi písmenami.</p>
+        <div class="obr"><img src="obrazky/material/omalovanky.jpg" alt="Omaľovánky hradov z kariet"></div>
+      </article>
+      <article class="vec nalepky">
+        <h3>Nálepky</h3>
+        <p>Za každú prečítanú kapitolu komiksu a za každý vyriešený hrad.</p>
+        <div class="obr nalepky-rad">
+          <img src="obrazky/nalepky/koruna.webp" alt="Nálepka koruna">
+          <img src="obrazky/nalepky/mapa.webp" alt="Nálepka mapa">
+          <img src="obrazky/nalepky/truhlica.webp" alt="Nálepka truhlica">
+          <img src="obrazky/nalepky/prilba.webp" alt="Nálepka rytierska prilba">
+          <img src="obrazky/nalepky/mece.webp" alt="Nálepka meče">
+          <img src="obrazky/nalepky/kompas.webp" alt="Nálepka kompas">
+        </div>
+      </article>
+      <article class="vec planik">
+        <h3>Skladací plánik</h3>
+        <p>Harmonika s návodom na hru a s mapou Slovenska, na ktorej je všetkých 20 hradov a miesta na nálepky.</p>
+        <div class="obr"><img src="obrazky/material/planik.jpg" alt="Návrh skladacieho plániku s mapou Slovenska"></div>
+      </article>
+      <article class="vec vrecko">
+        <h3>Vrecúško a pastelky</h3>
+        <p>Bavlnené vrecúško s ručne nakresleným logom hry a pastelky na omaľovánky.</p>
+        <div class="obr" style="background:#fff"><img src="obrazky/material/vrecusko.jpg" alt="Bavlnené vrecúško" style="max-height:200px"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<svg class="vlna" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--vinova);background:var(--kremova)"><path d="M0 30 Q 75 0 150 30 T 300 30 T 450 30 T 600 30 T 750 30 T 900 30 T 1050 30 T 1200 30 V60 H0Z"/></svg>
+
+<!-- ============ AKO HRAŤ ============ -->
+<section class="ako" id="ako-hrat">
+  <div class="wrap">
+    <h2>Ako sa hrá</h2>
+    <ol class="kroky">
+      <li><img src="obrazky/nalepky/zvitok.webp" alt=""><h3>Rozdaj karty</h3><p>Karty pomiešaj a rozdaj všetkým hráčom.</p></li>
+      <li><img src="obrazky/nalepky/mapa.webp" alt=""><h3>Hľadaj páry</h3><p>Ku karte hradu nájdi jeho legendu. Pomôže ti indícia aj samotný príbeh.</p></li>
+      <li><img src="obrazky/nalepky/prilba.webp" alt=""><h3>Doplň názov</h3><p>Na kartách chýbajú v názve hradu písmená. Doplň ich.</p></li>
+      <li><img src="obrazky/nalepky/koruna.webp" alt=""><h3>Nalep nálepku</h3><p>Za každý vyriešený hrad si nalep nálepku na mapu v plániku.</p></li>
+      <li><img src="obrazky/nalepky/truhlica.webp" alt=""><h3>Kto vyhrá</h3><p>Vyhráva hráč s najviac nájdenými pármi. Karty si potom môžeš vymaľovať.</p></li>
+    </ol>
+  </div>
+</section>
+
+<svg class="vlna" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" style="color:var(--horcicova);background:var(--vinova)"><path d="M0 30 Q 75 60 150 30 T 300 30 T 450 30 T 600 30 T 750 30 T 900 30 T 1050 30 T 1200 30 V60 H0Z"/></svg>
+
+<!-- ============ MAPA HRADOV ============ -->
+<section class="mapa-sekcia" id="mapa">
+  <div class="wrap">
+    <div class="mapa-hlava">
+      <div>
+        <h2>Mapa hradov</h2>
+        <p class="lead">Klikni na hrad, prečítaj si jeho karty a doplň chýbajúce písmená. Za správny názov získaš nálepku.</p>
+      </div>
+      <div class="zbierka" aria-live="polite">
+        <strong>Tvoja zbierka: <span id="pocet">0</span> z 20</strong>
+        <div class="ukazovatel"><span id="ukazovatel"></span></div>
+        <button type="button" id="vymazat">Začať zbierať odznova</button>
+      </div>
+    </div>
+    <div class="mapa-ram">
+      <svg id="mapa-svg" role="group" aria-label="Mapa Slovenska s 20 hradmi"></svg>
+    </div>
+    <ul class="zoznam-hradov" id="zoznam" aria-label="Zoznam hradov"></ul>
+  </div>
+</section>
+
+<!-- ============ NÁJDI PÁR ============ -->
+<section class="hra" id="najdi-par">
+  <div class="wrap">
+    <div class="hra-uvod">
+      <h2>Nájdi pár</h2>
+      <p class="lead">Ukážka hry online. Prečítaj si legendu a vyber hrad, ku ktorému patrí. Hrá sa päť kôl.</p>
+      <img src="obrazky/postavy/zara-dalekohlad.webp" alt="Zara pozerá ďalekohľadom">
+    </div>
+    <div class="hra-plocha" id="hra" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ============ PÄTIČKA ============ -->
+<footer class="paticka">
+  <div class="wrap">
+    <div style="padding-bottom:2.5rem">
+      <img class="logo" src="obrazky/logo-svetle.png" alt="Vrecúško hradných záhad">
+      <p>Magisterský ročníkový projekt</p>
+      <p>Žilinská univerzita v Žiline, 2026/2027</p>
+    </div>
+    <div class="sediaci" aria-hidden="true">
+      <img class="hrad" src="obrazky/postavy/hrad-kopec.webp" alt="">
+      <img src="obrazky/postavy/teo-sediaci.webp" alt="">
+      <img src="obrazky/postavy/zara-sediaca.webp" alt="">
+    </div>
+  </div>
+</footer>
+
+<!-- Okno s kartami hradu -->
+<dialog id="karta-okno" aria-labelledby="okno-nazov">
+  <div class="dialog-obal">
+    <button class="zavriet" type="button" aria-label="Zavrieť">×</button>
+    <h3 id="okno-nazov"></h3>
+    <div class="par-kariet">
+      <div class="karta karta-a">
+        <span class="pismeno" id="okno-pismeno"></span>
+        <div class="karta-obraz" id="okno-obraz"></div>
+        <div class="text"><span class="stuha" style="margin-top:-2.3rem">Indícia</span><p id="okno-indicia"></p></div>
+      </div>
+      <div class="karta karta-b">
+        <span class="stuha">Legenda</span>
+        <div class="text"><p id="okno-legenda"></p></div>
+        <div class="nazov-karty" id="okno-vzor" aria-hidden="true"></div>
+      </div>
+    </div>
+    <form class="doplnovacka" id="doplnovacka" autocomplete="off">
+      <h4>Doplň názov hradu</h4>
+      <p>Do žltých políčok napíš chýbajúce písmená.</p>
+      <div class="pismena" id="pismena"></div>
+      <div class="dopln-akcie">
+        <button class="btn" type="submit">Skontrolovať</button>
+        <p class="sprava" id="sprava" role="status"></p>
+        <div class="odmena" id="odmena"><img src="obrazky/nalepky/koruna.webp" alt=""><strong>Nálepka je v tvojej zbierke!</strong></div>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<!-- Okno so zväčšeným obrázkom -->
+<dialog id="lupa" aria-label="Zväčšený obrázok">
+  <div class="dialog-obal">
+    <button class="zavriet" type="button" aria-label="Zavrieť">×</button>
+    <img src="" alt="">
+  </div>
+</dialog>
+
+<script src="data.js"></script>
+<script src="mapa-slovenska.js"></script>
+<script>
+(function(){
+  const NAHRADNY = '<div class="nahradny"><img src="obrazky/nalepky/zvitok.webp" alt=""><span>Omaľovánka sa pripravuje</span></div>';
+  const obrazokHTML = h => h.obrazok ? `<img src="${h.obrazok}" alt="Omaľovánka: ${h.nazov}">` : NAHRADNY;
+  const bezDiakritiky = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase();
+
+  /* ---------- Zbierka (uložená v prehliadači) ---------- */
+  const KLUC = 'vrecusko-zbierka';
+  let zbierka = new Set();
+  try { zbierka = new Set(JSON.parse(localStorage.getItem(KLUC) || '[]')); } catch(e) {}
+  const uloz = () => { try { localStorage.setItem(KLUC, JSON.stringify([...zbierka])); } catch(e) {} };
+
+  /* ---------- Mapa ---------- */
+  const svg = document.getElementById('mapa-svg');
+  const NS = 'http://www.w3.org/2000/svg';
+  const M = MAPA_SK, okraj = 40;
+  svg.setAttribute('viewBox', `${-okraj} ${-okraj} ${M.sirka + 2*okraj} ${M.vyska + 2*okraj}`);
+  const bod = (lat, lon) => [(lon*M.k - M.minx)*M.mierka, (-lat - M.miny)*M.mierka];
+  svg.innerHTML = `<path class="krajina-tien" d="${M.obrys}"/><path class="krajina" d="${M.obrys}"/>`;
+  const piny = {}, tlacidla = {};
+  HRADY.forEach(h => {
+    let [x, y] = bod(h.lat, h.lon);
+    // posun bodov, ktoré by sa na mape prekrývali
+    const POSUN = {5: [-30, -18], 10: [12, 16], 6: [-14, 10], 3: [14, -16], 19: [6, 8], 8: [-6, -10], 12: [-10, 8]};
+    if (POSUN[h.cislo]) { x += POSUN[h.cislo][0]; y += POSUN[h.cislo][1]; }
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'pin');
+    g.setAttribute('tabindex', '0');
+    g.setAttribute('role', 'button');
+    g.setAttribute('aria-label', h.nazov);
+    const vlavo = x > M.sirka - 170;
+    g.innerHTML = `<circle class="kruh" cx="${x}" cy="${y}" r="22"/>
+      <text x="${x}" y="${y+1}">${h.cislo}</text>
+      <image class="ziskana" href="obrazky/nalepky/koruna.webp" x="${x-17}" y="${y-17}" width="34" height="34"/>
+      <text class="meno" x="${vlavo ? x-32 : x+32}" y="${y}" style="text-anchor:${vlavo?'end':'start'}">${h.nazov}</text>`;
+    g.addEventListener('click', () => otvor(h));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); otvor(h); } });
+    svg.appendChild(g); piny[h.cislo] = g;
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = h.nazov;
+    b.addEventListener('click', () => otvor(h));
+    li.appendChild(b); document.getElementById('zoznam').appendChild(li); tlacidla[h.cislo] = b;
+  });
+  // Mená na mape sa zobrazia navrchu
+  svg.addEventListener('mouseover', e => { const g = e.target.closest('.pin'); if (g) svg.appendChild(g); });
+
+  function obnovZbierku(){
+    HRADY.forEach(h => {
+      const ma = zbierka.has(h.cislo);
+      piny[h.cislo].classList.toggle('hotovo', ma);
+      tlacidla[h.cislo].classList.toggle('hotovo', ma);
+    });
+    document.getElementById('pocet').textContent = zbierka.size;
+    document.getElementById('ukazovatel').style.width = (zbierka.size / HRADY.length * 100) + '%';
+  }
+  document.getElementById('vymazat').addEventListener('click', () => { zbierka.clear(); uloz(); obnovZbierku(); });
+  obnovZbierku();
+
+  /* ---------- Okno s kartami ---------- */
+  const okno = document.getElementById('karta-okno');
+  const pismenaEl = document.getElementById('pismena');
+  const sprava = document.getElementById('sprava');
+  const odmena = document.getElementById('odmena');
+  let aktualny = null;
+
+  function otvor(h){
+    aktualny = h;
+    document.getElementById('okno-nazov').textContent = h.nazov;
+    document.getElementById('okno-pismeno').textContent = h.riesenie[0];
+    document.getElementById('okno-obraz').innerHTML = obrazokHTML(h);
+    document.getElementById('okno-indicia').textContent = h.indicia;
+    document.getElementById('okno-legenda').textContent = h.legenda;
+    document.getElementById('okno-vzor').innerHTML = h.doplnovacka.split('  ').map(w => `<span>${w}</span>`).join('');
+    // políčka na doplnenie
+    pismenaEl.innerHTML = '';
+    const slova = h.doplnovacka.split('  ').map(s => s.split(' '));
+    const riesenie = h.riesenie.split(' ');
+    slova.forEach((slovo, i) => {
+      const s = document.createElement('div'); s.className = 'slovo';
+      slovo.forEach((p, j) => {
+        if (p === '_') {
+          const inp = document.createElement('input');
+          inp.maxLength = 1; inp.dataset.spravne = riesenie[i][j];
+          inp.setAttribute('aria-label', `Chýbajúce písmeno ${j+1}. v ${i+1}. slove`);
+          s.appendChild(inp);
+        } else {
+          const sp = document.createElement('span'); sp.className = 'p'; sp.textContent = p; s.appendChild(sp);
+        }
+      });
+      pismenaEl.appendChild(s);
+    });
+    const polia = [...pismenaEl.querySelectorAll('input')];
+    polia.forEach((inp, k) => {
+      inp.addEventListener('input', () => {
+        inp.classList.remove('zle', 'dobre');
+        if (inp.value && polia[k+1]) polia[k+1].focus();
+      });
+      inp.addEventListener('keydown', e => { if (e.key === 'Backspace' && !inp.value && polia[k-1]) polia[k-1].focus(); });
+    });
+    sprava.textContent = ''; sprava.className = 'sprava';
+    odmena.classList.remove('ukaz');
+    if (zbierka.has(h.cislo)) {
+      polia.forEach(inp => { inp.value = inp.dataset.spravne; inp.classList.add('dobre'); });
+      sprava.textContent = 'Tento hrad už máš v zbierke.'; sprava.classList.add('ok');
+    }
+    okno.showModal();
+    okno.querySelector('.dialog-obal').scrollTop = 0;
+  }
+
+  document.getElementById('doplnovacka').addEventListener('submit', e => {
+    e.preventDefault();
+    const polia = [...pismenaEl.querySelectorAll('input')];
+    if (polia.some(p => !p.value.trim())) {
+      sprava.textContent = 'Ešte nie sú vyplnené všetky políčka.'; sprava.className = 'sprava chyba';
+      (polia.find(p => !p.value.trim())).focus(); return;
+    }
+    let vsetkoDobre = true;
+    polia.forEach(p => {
+      const ok = bezDiakritiky(p.value) === bezDiakritiky(p.dataset.spravne);
+      p.classList.toggle('dobre', ok); p.classList.toggle('zle', !ok);
+      if (ok) p.value = p.dataset.spravne; else vsetkoDobre = false;
+    });
+    if (vsetkoDobre) {
+      sprava.textContent = `Správne! ${aktualny.riesenie}`; sprava.className = 'sprava ok';
+      if (!zbierka.has(aktualny.cislo)) { zbierka.add(aktualny.cislo); uloz(); obnovZbierku(); odmena.classList.add('ukaz'); }
+    } else {
+      sprava.textContent = 'Červené písmená nesedia. Skús ich opraviť, pomôže ti indícia.'; sprava.className = 'sprava chyba';
+    }
+  });
+
+  /* ---------- Zatváranie okien ---------- */
+  document.querySelectorAll('dialog').forEach(d => {
+    d.querySelector('.zavriet').addEventListener('click', () => d.close());
+    d.addEventListener('click', e => { if (e.target === d) d.close(); });
+  });
+  const lupa = document.getElementById('lupa');
+  document.querySelectorAll('[data-lupa]').forEach(b => b.addEventListener('click', () => {
+    const img = lupa.querySelector('img');
+    img.src = b.dataset.lupa; img.alt = b.querySelector('img').alt;
+    lupa.showModal();
+  }));
+
+  /* ---------- Hra Nájdi pár ---------- */
+  const hra = document.getElementById('hra');
+  const KOL = 5;
+  let kolo, body, poradie, vysledky;
+  const zamiesaj = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+  function novaHra(){
+    kolo = 0; body = 0; vysledky = [];
+    poradie = zamiesaj(HRADY).slice(0, KOL);
+    ukazKolo();
+  }
+  function hviezdy(){
+    return '<div class="hviezdy" aria-hidden="true">' + Array.from({length: KOL}, (_, i) =>
+      `<span class="${vysledky[i] === true ? 'ok' : vysledky[i] === false ? 'zle' : ''}"></span>`).join('') + '</div>';
+  }
+  function ukazKolo(){
+    const h = poradie[kolo];
+    const moznosti = zamiesaj([h, ...zamiesaj(HRADY.filter(x => x !== h)).slice(0, 2)]);
+    hra.innerHTML = `
+      <div class="hra-stav"><span>Kolo ${kolo + 1} z ${KOL}</span>${hviezdy()}</div>
+      <div class="hra-legenda"><span class="stuha">Legenda</span><p>${h.legenda}</p></div>
+      <div class="moznosti">${moznosti.map(m => `
+        <button class="moznost" type="button" data-cislo="${m.cislo}">
+          <div class="karta-obraz">${obrazokHTML(m)}</div><span>${m.nazov}</span>
+        </button>`).join('')}</div>
+      <div class="hra-dalej"><p id="hra-sprava"></p></div>`;
+    hra.querySelectorAll('.moznost').forEach(b => b.addEventListener('click', () => vyber(b, h)));
+  }
+  function vyber(b, h){
+    const ok = +b.dataset.cislo === h.cislo;
+    vysledky[kolo] = ok; if (ok) body++;
+    hra.querySelectorAll('.moznost').forEach(x => {
+      x.disabled = true;
+      if (+x.dataset.cislo === h.cislo) x.classList.add('spravna'); else x.classList.add('nespravna');
+    });
+    hra.querySelector('.hra-stav .hviezdy').outerHTML = hviezdy();
+    const dalej = document.createElement('button');
+    dalej.className = 'btn'; dalej.type = 'button';
+    dalej.textContent = kolo + 1 < KOL ? 'Ďalšie kolo' : 'Pozrieť výsledok';
+    dalej.addEventListener('click', () => { kolo++; kolo < KOL ? ukazKolo() : koniec(); });
+    hra.querySelector('#hra-sprava').textContent = ok ? `Správne, je to ${h.nazov}!` : `Táto legenda patrí k hradu ${h.nazov}.`;
+    hra.querySelector('.hra-dalej').appendChild(dalej);
+    dalej.focus();
+  }
+  function koniec(){
+    const texty = ['Nevadí, povesti sa dajú prečítať aj na mape hradov.', 'Dobrý začiatok, skús to ešte raz.', 'Dobrý začiatok, skús to ešte raz.', 'Pekne! Si na dobrej stope.', 'Výborne! Takmer bez chyby.', 'Dokonalé! Si skutočný znalec hradov.'];
+    hra.innerHTML = `<div class="hra-koniec">
+      <img src="obrazky/nalepky/${body >= 4 ? 'truhlica' : 'kompas'}.webp" alt="">
+      <h3>${body} z ${KOL} správne</h3>
+      <p>${texty[body]}</p>
+      <button class="btn" type="button" id="znova">Hrať znova</button></div>`;
+    document.getElementById('znova').addEventListener('click', novaHra);
+  }
+  novaHra();
+})();
+</script>
+</body>
+</html>
