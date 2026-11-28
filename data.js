@@ -58,13 +58,13 @@ const HRADY = [
   },
   {
     cislo: 5,
-    nazov: "Hrad Devín",
-    indicia: "Stojím na skale tam, kde sa rieka Morava vlieva do Dunaja. Patrím k hlavnému mestu Slovenska.",
-    legenda: "Rytier Mikuláš a krásna Margaréta sa veľmi ľúbili, no jej rodina ich lásku nechcela. Jej strýko Rafael prepadol hrad a Mikuláša porazil. Na ich smutný príbeh dodnes spomína štíhla Panenská veža na skale.",
-    doplnovacka: "H R A D  D _ V Í _",
-    riesenie: "HRAD DEVÍN",
+    nazov: "Považský hrad",
+    indicia: "Som zrúcanina na kopci nad Považskou Bystricou. Kedysi tu žili bratia Podmanickí, lúpežní rytieri.",
+    legenda: "Lúpežný rytier Rafael Podmanický uniesol krásnu Hedvigu a zavrel ju na hrade. Kým boli bratia preč, jej otec zhromaždil sedliakov, hrad dobyl a dcéru oslobodil. Bratia potom prosili kráľa o milosť.",
+    doplnovacka: "P O V _ Ž S K Ý  H _ A D",
+    riesenie: "POVAŽSKÝ HRAD",
     obrazok: null,
-    lat: 48.1737, lon: 16.9786
+    lat: 49.13, lon: 18.465
   },
   {
     cislo: 6,
@@ -168,13 +168,13 @@ const HRADY = [
   },
   {
     cislo: 16,
-    nazov: "Považský hrad",
-    indicia: "Som zrúcanina na kopci nad Považskou Bystricou. Kedysi tu žili bratia Podmanickí, lúpežní rytieri.",
-    legenda: "Lúpežný rytier Rafael Podmanický uniesol krásnu Hedvigu a zavrel ju na hrade. Kým boli bratia preč, jej otec zhromaždil sedliakov, hrad dobyl a dcéru oslobodil. Bratia potom prosili kráľa o milosť.",
-    doplnovacka: "P O V _ Ž S K Ý  H _ A D",
-    riesenie: "POVAŽSKÝ HRAD",
+    nazov: "Hrad Devín",
+    indicia: "Stojím na skale tam, kde sa rieka Morava vlieva do Dunaja. Patrím k hlavnému mestu Slovenska.",
+    legenda: "Rytier Mikuláš a krásna Margaréta sa veľmi ľúbili, no jej rodina ich lásku nechcela. Jej strýko Rafael prepadol hrad a Mikuláša porazil. Na ich smutný príbeh dodnes spomína štíhla Panenská veža na skale.",
+    doplnovacka: "H R A D  D _ V Í _",
+    riesenie: "HRAD DEVÍN",
     obrazok: null,
-    lat: 49.13, lon: 18.465
+    lat: 48.1737, lon: 16.9786
   },
   {
     cislo: 17,

@@ -100,6 +100,8 @@ a{color:inherit}
 .vec.komiks .obr img{width:100%;height:100%;object-fit:cover;object-position:top}
 .vec.karty,.vec.nalepky{grid-column:span 3}
 .vec.planik{grid-column:span 4}
+.planik-obr{flex-direction:column;gap:.5rem;background:none!important}
+.planik-obr button{padding:0;border:0;background:none;cursor:zoom-in;border-radius:8px;overflow:hidden;width:100%}
 .vec.vrecko{grid-column:span 2}
 .nalepky-rad{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;padding:.6rem;background:none!important}
 .nalepky-rad img{width:64px;height:64px;object-fit:contain}
@@ -112,7 +114,7 @@ a{color:inherit}
 /* ---------- Ako hrať ---------- */
 .ako{background:var(--vinova);color:var(--kremova);padding:4rem 0 4.5rem;position:relative}
 .ako h2{color:var(--citronova);margin-bottom:2.4rem}
-.kroky{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;counter-reset:k}
+.kroky{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;counter-reset:k}
 .kroky li{position:relative;padding:1.2rem 1.1rem 1.3rem;border:3px dashed rgba(242,237,112,.55);border-radius:var(--radius);counter-increment:k}
 .kroky li::before{content:counter(k);font-family:"Bangers";font-size:2.6rem;line-height:1;width:58px;height:58px;display:grid;place-items:center;background:var(--citronova);color:var(--vinova);border-radius:50%;margin-bottom:.8rem}
 .kroky h3{font-size:1.6rem;color:var(--citronova);margin-bottom:.4rem}
@@ -128,14 +130,14 @@ a{color:inherit}
 .ukazovatel{height:14px;background:#fff;border:2px solid var(--vinova);border-radius:99px;overflow:hidden;margin:.4rem 0 .5rem}
 .ukazovatel span{display:block;height:100%;width:0;background:var(--vinova);transition:width .5s}
 .zbierka button{font:inherit;font-size:.85rem;background:none;border:0;padding:0;text-decoration:underline;color:var(--vinova);cursor:pointer;opacity:.8}
-.mapa-ram{background:var(--kremova);border:4px solid var(--vinova);border-radius:28px;padding:clamp(.6rem,2vw,1.6rem);position:relative;box-shadow:0 10px 0 var(--vinova-tmava)}
+.mapa-ram{background:var(--vinova);border:4px solid var(--vinova);border-radius:28px;padding:clamp(.6rem,2vw,1.6rem);position:relative;box-shadow:0 10px 0 var(--vinova-tmava)}
 .mapa-ram svg{width:100%;height:auto;display:block;overflow:visible}
-.krajina{fill:#fff;stroke:var(--vinova);stroke-width:4;stroke-linejoin:round}
-.krajina-tien{fill:var(--ladova);transform:translate(8px,10px)}
+.krajina{fill:#C9D27A;stroke:var(--vinova-tmava);stroke-width:4;stroke-linejoin:round}
+.krajina-tien{fill:var(--vinova-tmava);transform:translate(8px,10px)}
 .pin{cursor:pointer;outline:none}
 .pin .kruh{fill:var(--vinova);stroke:var(--kremova);stroke-width:4;transition:r .15s}
 .pin text{font-family:"Bangers";font-size:22px;fill:var(--citronova);text-anchor:middle;dominant-baseline:central;pointer-events:none}
-.pin .meno{font-family:"Jost";font-weight:700;font-size:20px;fill:var(--vinova);opacity:0;transition:opacity .15s;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
+.pin .meno{font-family:"Jost";font-weight:700;font-size:20px;fill:var(--vinova-tmava);opacity:0;transition:opacity .15s;paint-order:stroke;stroke:#fff;stroke-width:6px;stroke-linejoin:round}
 .pin:hover .meno,.pin:focus .meno{opacity:1}
 .pin:hover .kruh,.pin:focus .kruh{r:27}
 .pin:focus .kruh{stroke:var(--pomaranc)}
@@ -296,7 +298,7 @@ dialog::backdrop{background:rgba(70,20,31,.72)}
   <div class="wrap">
     <div>
       <h2>Hra, v ktorej ožívajú povesti</h2>
-      <p class="lead">Vrecúško hradných záhad spája kartovú hru, komiks a úlohy. Deti hľadajú k sebe kartu hradu a jeho legendu, dopĺňajú chýbajúce písmená v názvoch a za každý vyriešený hrad si nalepia nálepku do vlastnej mapy Slovenska.</p>
+      <p class="lead">Vrecúško hradných záhad spája kartovú hru, komiks a úlohy. Deti čítajú indície a legendy, hádajú, o ktorý hrad alebo zámok ide, a dopĺňajú chýbajúce písmená v jeho názve. Za splnené úlohy získavajú nálepky, lepia ich do komiksu a objavujú ďalší príbeh.</p>
       <p>Obrázky hradov na kartách sú omaľovánky, takže každé vrecúško si deti postupne vyfarbia po svojom.</p>
       <ul class="fakty">
         <li><b>20</b>hradov a zámkov</li>
@@ -345,7 +347,7 @@ dialog::backdrop{background:rgba(70,20,31,.72)}
       </article>
       <article class="vec nalepky">
         <h3>Nálepky</h3>
-        <p>Za každú prečítanú kapitolu komiksu a za každý vyriešený hrad.</p>
+        <p>Získaš ich za úlohy v zošite Úlohy hradných záhad a nalepíš ich do komiksu.</p>
         <div class="obr nalepky-rad">
           <img src="obrazky/nalepky/koruna.webp" alt="Nálepka koruna">
           <img src="obrazky/nalepky/mapa.webp" alt="Nálepka mapa">
@@ -357,8 +359,11 @@ dialog::backdrop{background:rgba(70,20,31,.72)}
       </article>
       <article class="vec planik">
         <h3>Skladací plánik</h3>
-        <p>Harmonika s návodom na hru a s mapou Slovenska, na ktorej je všetkých 20 hradov a miesta na nálepky.</p>
-        <div class="obr"><img src="obrazky/material/planik.jpg" alt="Návrh skladacieho plániku s mapou Slovenska"></div>
+        <p>Skladacia harmonika: na jednej strane návod na hru, na druhej Moja mapa hradov so všetkými 20 hradmi.</p>
+        <div class="obr planik-obr">
+          <button type="button" data-lupa="obrazky/material/planik-navod.jpg" aria-label="Zväčšiť návod z plániku"><img src="obrazky/material/planik-navod.jpg" alt="Plánik – návod na hru v štyroch krokoch"></button>
+          <button type="button" data-lupa="obrazky/material/planik-mapa.jpg" aria-label="Zväčšiť mapu z plániku"><img src="obrazky/material/planik-mapa.jpg" alt="Plánik – Moja mapa hradov"></button>
+        </div>
       </article>
       <article class="vec vrecko">
         <h3>Vrecúško a pastelky</h3>
@@ -376,11 +381,10 @@ dialog::backdrop{background:rgba(70,20,31,.72)}
   <div class="wrap">
     <h2>Ako sa hrá</h2>
     <ol class="kroky">
-      <li><img src="obrazky/nalepky/zvitok.webp" alt=""><h3>Rozdaj karty</h3><p>Karty pomiešaj a rozdaj všetkým hráčom.</p></li>
-      <li><img src="obrazky/nalepky/mapa.webp" alt=""><h3>Hľadaj páry</h3><p>Ku karte hradu nájdi jeho legendu. Pomôže ti indícia aj samotný príbeh.</p></li>
-      <li><img src="obrazky/nalepky/prilba.webp" alt=""><h3>Doplň názov</h3><p>Na kartách chýbajú v názve hradu písmená. Doplň ich.</p></li>
-      <li><img src="obrazky/nalepky/koruna.webp" alt=""><h3>Nalep nálepku</h3><p>Za každý vyriešený hrad si nalep nálepku na mapu v plániku.</p></li>
-      <li><img src="obrazky/nalepky/truhlica.webp" alt=""><h3>Kto vyhrá</h3><p>Vyhráva hráč s najviac nájdenými pármi. Karty si potom môžeš vymaľovať.</p></li>
+      <li><img src="obrazky/nalepky/zvitok.webp" alt=""><h3>Vyber si kartu</h3><p>Vyber si kartu a prečítaj si indície.</p></li>
+      <li><img src="obrazky/nalepky/mapa.webp" alt=""><h3>Uhádni hrad</h3><p>Uhádni, o ktorý hrad alebo zámok ide. Pomôže ti legenda a chýbajúce písmená v názve.</p></li>
+      <li><img src="obrazky/nalepky/truhlica.webp" alt=""><h3>Získaj nálepky</h3><p>Nálepky získaš za úlohy v zošite Úlohy hradných záhad.</p></li>
+      <li><img src="obrazky/nalepky/koruna.webp" alt=""><h3>Nalep ich do komiksu</h3><p>Nalep nálepky do komiksu a objavuj ďalší príbeh.</p></li>
     </ol>
   </div>
 </section>
@@ -499,7 +503,7 @@ dialog::backdrop{background:rgba(70,20,31,.72)}
   HRADY.forEach(h => {
     let [x, y] = bod(h.lat, h.lon);
     // posun bodov, ktoré by sa na mape prekrývali
-    const POSUN = {5: [-30, -18], 10: [12, 16], 6: [-14, 10], 3: [14, -16], 19: [6, 8], 8: [-6, -10], 12: [-10, 8]};
+    const POSUN = {16: [-30, -18], 10: [12, 16], 6: [-14, 10], 3: [14, -16], 19: [6, 8], 8: [-6, -10], 12: [-10, 8]};
     if (POSUN[h.cislo]) { x += POSUN[h.cislo][0]; y += POSUN[h.cislo][1]; }
     const g = document.createElementNS(NS, 'g');
     g.setAttribute('class', 'pin');
